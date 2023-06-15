@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team syzygy's Search Engine</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col justify-center items-center min-h-screen">
+        <div class="container mx-auto py-10">
+            <h1 class="text-4xl font-bold mb-6 text-center">Welcome to Team syzygy's Search Engine</h1>
+
+            <div class="flex justify-center mb-6">
+                <form id="search-form" class="w-3/4 lg:w-1/2 flex space-x-2" onsubmit="search();">
+                    <input id="search-input" name="query" type="query" id="query" class="w-full flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 \32xl\:text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-10" 
+                    placeholder="Enter your search query...">
+                    <button id="search-button" type="submit" class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Search</button>
+                </form>
+            </div>
+
+
+            <div class="flex justify-center">
+                <div  class="w-3/4 lg:w-1/2">
+                    <h2 class="text-2xl font-bold mb-4 text-center">Search Results</h2>
+                    <ul  id="results" class="list-disc pl-8">
+                        <!-- Search results will be added here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script> 
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("DOM fully loaded and parsed");
+    
+            const button = document.getElementById('search-button');
+            const input = document.getElementById('search-input');
+    
+            function search() {
+                console.log('Button clicked or Enter key pressed!');
+                
+
+                // Clear the existing search results
+                const results = document.getElementById('results');
+                results.innerHTML = '';
+
+                // Display the search query
+                const searchQueryElement = document.createElement("p");
+                searchQueryElement.innerHTML = 'You searched for: ' + input.value;
+                results.appendChild(searchQueryElement);
+
+                if (input.value) {
+                    var element = document.getElementById("results");
+
+                    var books = [
+                        { "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "year": 1925 },
+                        { "title": "To Kill a Mockingbird", "author": "Harper Lee", "year": 1960 },
+                        { "title": "1984", "author": "George Orwell", "year": 1949 },
+                        { "title": "Pride and Prejudice", "author": "Jane Austen", "year": 1813 }
+                    ];
+
+                    for (var i = 0; i < books.length; i++) {
+                        var newElement = document.createElement("li");
+                        newElement.innerHTML = books[i].title;
+                        
+                        element.appendChild(newElement);
+                    }
+                }
+
+                // Scroll to the top of the page
+                window.scrollTo(0, 0);
+            }
+    
+            input.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    search();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

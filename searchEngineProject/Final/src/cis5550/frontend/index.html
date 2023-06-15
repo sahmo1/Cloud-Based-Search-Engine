@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team syzygy's Search Engine</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+  crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="bg-image"></div>
+    <div class="flex flex-col justify-center items-center min-h-screen">
+        <div class="container mx-auto py-10">
+
+            <div class="flex justify-center mb-6">
+                <div id="search-form" class="w-3/4 lg:w-1/2 flex space-x-2" onsubmit="search();">
+                    <input id="search-input" name="query" class="w-full flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-10" 
+                    placeholder="Enter your search query...">
+                    <button id="search-button" type="submit" class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Search</button>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <div  class="w-3/4 lg:w-1/2">
+                    <h2 class="text-white text-2xl font-bold mb-4 text-center">Search Results</h2>
+                    <div id="loader" class="bg-white hidden list-disc text-center flex justify-center items-center">
+                      <div class="w-full">
+                      <div role="status" class="p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                            </div>
+                            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4">
+                            <div>
+                                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                            </div>
+                            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4">
+                            <div>
+                                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                            </div>
+                            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4">
+                            <div>
+                                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                            </div>
+                            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4">
+                            <div>
+                                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                                <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                            </div>
+                            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                        </div>
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                   </div>
+                   </div>
+                    <div id="results" class="list-disc pl-8 text-center flex justify-center items-center">
+                      <div class="w-full">
+
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<style>
+.bg-image {
+  z-index: -1;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://www.swm.de/.imaging/mte/swm/stage-image-large-2x/dam/img/home/buehne/b-muenchen.jpg/jcr:content/b-muenchen.jpg');
+  animation: blend 20s linear infinite;
+  transition: all .5s ease-in-out;
+  }
+  
+  @keyframes blend {
+    0% {
+      background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://www.swm.de/.imaging/mte/swm/stage-image-large-2x/dam/img/home/buehne/b-muenchen.jpg/jcr:content/b-muenchen.jpg');
+    }
+    25% {
+      background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://img.freepik.com/free-photo/fuji-mountain-kawaguchiko-lake-morning-autumn-seasons-fuji-mountain-yamanachi-japan_335224-102.jpg?w=2000&t=st=1682715294~exp=1682715894~hmac=0fba44c23841ac35a69623b553f98a2ccda09c40f2f04e1c48632efcb7bcf055');
+    }
+    50% {
+      background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://img.freepik.com/free-photo/beautiful-landscape_74190-3074.jpg?w=1480&t=st=1682715537~exp=1682716137~hmac=70cd71075f1034165045b297a457c211062ddec9137ca022ad7e8ea9df08b541');
+    }
+    75% {
+      background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://wallpaperaccess.com/full/6244.jpg');
+    }
+    100% {
+      background-image: linear-gradient(rgb(255 255 255 / 11%), rgb(0 0 0 / 55%)), url('https://www.swm.de/.imaging/mte/swm/stage-image-large-2x/dam/img/home/buehne/b-muenchen.jpg/jcr:content/b-muenchen.jpg');
+    }
+  }
+
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .no-underline {
+    text-decoration: none;
+  }
+
+  .required::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
+}
+</style>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
